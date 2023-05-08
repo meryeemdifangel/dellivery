@@ -8,7 +8,6 @@ const fileUpload = require("express-fileupload");
 
 const errorMiddleware = require("./middleware/error");
 // Route Imports
-const routes = require("./routes");
 // Config
  // require("dotenv").config({ path: "../config.env" });
 //}
@@ -18,7 +17,6 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-app.use("/api", routes);
 
 // Middleware for Errors
 app.use(errorMiddleware);
