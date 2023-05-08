@@ -5,7 +5,6 @@ const connectDatabase = () => {
 
  if(!dotenv.config().error)
 {
-  console.log("lala " , process.env.DBKEY)
   mongoose.connect("mongodb+srv://jmdif:meryemdif@cluster0.vnstzge.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology:  true,
