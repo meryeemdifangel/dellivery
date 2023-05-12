@@ -34,10 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
 app.use("/api/v1", routes);
-const port = process.env.PORT || 3030;
-const server = app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 
 // Middleware for Errors
 app.use(errorMiddleware);
@@ -50,4 +46,12 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
+const PORT = process.env.PORT || 3030;
+
+// your code
+
+app.listen(PORT, () => {
+  console.log(`server started on port ${PORT}`);
+});
+
 }
