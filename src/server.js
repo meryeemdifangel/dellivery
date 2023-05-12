@@ -8,8 +8,7 @@ const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const errorMiddleware = require("./middleware/error");
 // Route Imports
-//const routes = require("./routes/index");
-
+const routes = require("./routes/index");
 
 
 // Handling Uncaught Exception
@@ -31,7 +30,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-//app.use("/api/v1", routes);
+app.use("/api/v1", routes);
 
 // Middleware for Errors
 app.use(errorMiddleware);
