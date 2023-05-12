@@ -11,9 +11,7 @@ const errorMiddleware = require("./middleware/error");
 //const routes = require("./routes/index");
 
 
-if(!dotenv.config().error)
-{
-dotenv.config({ path: '../.env' });
+
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
   console.log(`Error: ${err.message}`);
@@ -54,4 +52,3 @@ app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
 
-}
