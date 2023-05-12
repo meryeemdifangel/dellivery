@@ -2,19 +2,14 @@ const connectDatabase = require("./middleware/config/database");
 const dotenv = require('dotenv');
 const cors = require("cors");
 const express = require("express");
-
 const app = express();
-
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
-
 const errorMiddleware = require("./middleware/error");
 // Route Imports
 const routes = require("./routes/index");
-// Config
- // require("dotenv").config({ path: "../config.env" });
-//}
+
 
 if(!dotenv.config().error)
 {
@@ -43,9 +38,7 @@ const port = process.env.PORT || 3030;
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-app.get('/', (req, res) => {
-  res.sendStatus(200)
-})
+
 // Middleware for Errors
 app.use(errorMiddleware);
 
