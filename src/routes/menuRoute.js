@@ -4,7 +4,7 @@ const menuController = require("../controllers/menuController");
 
 // Route: /api/restaurants/:restaurantId/menus
 
-router.get("/:restaurantId", menuController.getAllMenus);
+router.get("/restaurant/:restaurantId", menuController.getAllMenus);
 router.post("/", menuController.createMenu);
 router.get("/:id", menuController.getMenuDetails);
 router.put("/:id", menuController.updateMenu);
