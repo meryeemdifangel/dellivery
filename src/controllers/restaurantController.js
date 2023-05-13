@@ -4,6 +4,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 
 // Create a new restaurant
 exports.createRestaurant = catchAsyncErrors(async (req, res, next) => {
+  console.log("one")
   const restaurant = await Restaurant.create(req.body);
 
   res.status(201).json({
