@@ -7,10 +7,7 @@ exports.createRestaurant = catchAsyncErrors(async (req, res, next) => {
   console.log("one")
   const restaurant = await Restaurant.create(req.body);
 
-  res.status(201).json({
-    success: true,
-    restaurant,
-  });
+  res.status(201).json(restaurant);
 });
 
 // Get all restaurants
