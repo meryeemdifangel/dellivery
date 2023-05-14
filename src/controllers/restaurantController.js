@@ -15,10 +15,9 @@ exports.getAllRestaurants = catchAsyncErrors(async (req, res, next) => {
   console.log("hna")
   const restaurants = await Restaurant.find();
 
-  res.status(200).json({
-    success: true,
-    restaurants,
-  });
+  res.status(200).json(
+    restaurants
+  );
 });
 
 // Get restaurant details
