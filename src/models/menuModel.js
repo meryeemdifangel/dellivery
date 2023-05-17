@@ -18,6 +18,10 @@ const menuSchema = new mongoose.Schema({
     ref: "Restaurant",
     required: true,
   },
+  imageUrl: {
+    type: String,
+   // required: true,
+  },
 });
 
 module.exports = mongoose.model("Menu", menuSchema);
