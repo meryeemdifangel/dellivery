@@ -1,6 +1,9 @@
 const Menu = require("../models/menuModel");
 const ErrorHander = require("../utils/errorhander");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const streamifier = require("streamifier");
+
+
 const cloudinary = require("cloudinary").v2; // Assuming you have set up Cloudinary
 // Configuration 
 cloudinary.config({
@@ -23,17 +26,38 @@ exports.getAllMenus = catchAsyncErrors(async (req, res, next) => {
 // Create a new menu
 exports.createMenu = catchAsyncErrors(async (req, res, next) => {
   const { nom, description, price, idRestaurant } = req.body;
-  const image = req.files.image; // Assuming you have the image file in req.files
+  const imageData = req.files.imageUrl.data; // Image data buffer
+  const imageName = req.files.imageUrl.name;
+  
+  // Create a readable stream from the image buffer
+const stream = streamifier.createReadStream(imageData);
+// Upload the stream to Cloudinary
+const cloudinaryResult = await new Promise((resolve, reject) => {
+  const uploadStream = cloudinary.uploader.upload_stream(
+    {
+      folder: "products",
+      public_id: imageName, // Use the image name as the public_id
+    },
+    (error, result) => {
+      if (error) reject(error);
+      else resolve(result);
+    }
+  );
 
-  // Upload image to Cloudinary
-  const result = await cloudinary.uploader.upload(image.tempFilePath);
+  stream.pipe(uploadStream);
+});
 
+  const imageUrl = cloudinaryResult.secure_url; // or cloudinaryResult.url
+  
   const menu = await Menu.create({
     nom,
     description,
     price,
     idRestaurant,
-    imageUrl: result.secure_url, // Store the image URL from Cloudinary
+    imageUrl: {
+      public_id: cloudinaryResult.public_id,
+      url: imageUrl,
+    }
   });
 
   res.status(201).json({
