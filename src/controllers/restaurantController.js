@@ -28,10 +28,8 @@ exports.getRestaurantDetails = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Restaurant not found", 404));
   }
 
-  res.status(200).json({
-    success: true,
-    restaurant,
-  });
+  res.status(200).json(
+    restaurant);
 });
 
 // Update restaurant details

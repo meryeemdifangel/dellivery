@@ -8,10 +8,8 @@ exports.getAllMenus = catchAsyncErrors(async (req, res, next) => {
 
   const menus = await Menu.find({ idRestaurant: restaurantId });
 
-  res.status(200).json({
-    success: true,
-    menus,
-  });
+  res.status(200).json(
+    menus);
 });
 
 // Create a new menu
@@ -32,10 +30,8 @@ exports.getMenuDetails = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHander("Menu not found", 404));
   }
 
-  res.status(200).json({
-    success: true,
-    menu,
-  });
+  res.status(200).json(
+    menu);
 });
 
 // Update menu details
