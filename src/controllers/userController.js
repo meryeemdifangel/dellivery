@@ -4,28 +4,55 @@ const User = require("../models/userModel");
 const sendToken = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
-const cloudinary = require("cloudinary");
+const streamifier = require("streamifier");
+
+
+const cloudinary = require("cloudinary").v2; // Assuming you have set up Cloudinary
+// Configuration 
+cloudinary.config({
+  cloud_name: "dbmsxeuph",
+  api_key: "538162754625643",
+  api_secret: "4iv_nicR2-Lcf8Wm0F0SPdZlML8"
+});
 
 // Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
- // const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-  //  folder: "avatars",
-  //  width: 150,
-  //  crop: "scale",
-  //});
+
   const { name, email, password } = req.body;
+
+  const imageData = req.files.imageUrl.data; // Image data buffer
+  const imageName = req.files.imageUrl.name;
+  
+  // Create a readable stream from the image buffer
+const stream = streamifier.createReadStream(imageData);
+// Upload the stream to Cloudinary
+const cloudinaryResult = await new Promise((resolve, reject) => {
+  const uploadStream = cloudinary.uploader.upload_stream(
+    {
+      folder: "products",
+      public_id: imageName, // Use the image name as the public_id
+    },
+    (error, result) => {
+      if (error) reject(error);
+      else resolve(result);
+    }
+  );
+
+  stream.pipe(uploadStream);
+});
+
+  const imageUrl = cloudinaryResult.secure_url; // or cloudinaryResult.url
+  
 
   const user = await User.create({
     name,
     email,
     password,
-  //  avatar: {
-  //    public_id: myCloud.public_id,
-  //    url: myCloud.secure_url,
-  //  },
+    imageUrl: {
+      public_id: cloudinaryResult.public_id,
+      url: imageUrl,
+    }
   });
-  console.log("meryem ")
-
   sendToken(user, 201, res);
 });
 

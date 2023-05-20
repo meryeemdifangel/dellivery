@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     minLength: [8, "Password should be greater than 8 characters"],
     select: false,
   },
-  avatar: {
+  imageUrl: {
     public_id: {
       type: String,
       //required: true,
@@ -53,8 +53,8 @@ userSchema.pre("save", async function (next) {
 // JWT TOKEN
 userSchema.methods.getJWTToken = function () {
   console.log(process.env.JWT_SECRET)
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
+  return jwt.sign({ id: this._id }, "123fjhkkmn6993bn5555kkmgh1234", {
+    expiresIn: "2d",
   });
 };
 

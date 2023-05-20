@@ -101,12 +101,13 @@ exports.updateMenu = catchAsyncErrors(async (req, res, next) => {
 // Delete a menu
 exports.deleteMenu = catchAsyncErrors(async (req, res, next) => {
   const menu = await Menu.findById(req.params.id);
+  console.log(menu)
 
   if (!menu) {
     return next(new ErrorHander("Menu not found", 404));
   }
 
-  await menu.remove();
+  await Menu.deleteOne({_id:menu._id});
 
   res.status(200).json({
     success: true,
