@@ -28,6 +28,9 @@ const menuSchema = new mongoose.Schema({
     //  required: true,
     },
   },
+  category : {
+    type : String ,
+},
 });
 
 module.exports = mongoose.model("Menu", menuSchema);
