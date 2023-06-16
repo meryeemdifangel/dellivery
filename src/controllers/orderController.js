@@ -1,5 +1,5 @@
-const Order = require("../Modals/orderModal")
 const jwt = require('jsonwebtoken');
+const Order = require('../models/orderModel');
 
 const getAllOrdersOfClient = async (req , res) => {
     try { 
@@ -16,16 +16,7 @@ const getAllOrdersOfClient = async (req , res) => {
 
 const addOrder = async (req , res ) => {
     try {
-        console.log(req.body)
-        const authorization_header = req.headers.authorization;
-        let client;
-        if (authorization_header && authorization_header.toString().startsWith('Bearer ') ){
-            let token = authorization_header.toString().split(' ')[1]
-            client = jwt.verify(token, "food_delivry").id;
-        }else {
-            client = jwt.verify(req.body.client, "food_delivry").id; 
-        }
-        const order = await Order.create({...req.body,client: client});
+        const order = await Order.create({...req.body,client: req.user.id});
         res.status(200).send(order);
     } catch (error) {
         console.log(error)
