@@ -4,6 +4,8 @@ const router = express.Router();
 const userRoutes = require("./userRoute");
 const menuRoutes = require("./menuRoute");
 const restaurantRoutes = require("./restaurantRoute");
+const orderRoutes = require("./orderRoute");
+
 // Import other route files as needed
 
 // Route: /api/users
@@ -14,6 +16,9 @@ router.use("/menus", menuRoutes);
 
 // Route: /api/restaurants
 router.use("/restaurants", restaurantRoutes);
+
+// Route: /api/orders
+router.use("/orders", orderRoutes);
 
 // Add other route prefixes as needed
 
