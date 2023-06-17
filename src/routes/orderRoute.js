@@ -7,7 +7,7 @@ const OrderRouter = express.Router();
 
 
 OrderRouter.get("/client/:id",getAllOrdersOfClient)
-OrderRouter.post("/", isAuthenticatedUser, addOrder);
+OrderRouter.post("/", addOrder);
 
 
 module.exports = OrderRouter;
