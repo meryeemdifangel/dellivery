@@ -5,7 +5,7 @@ const Menu = require('../models/menuModel');
 
  const getAllReviewOfMenu = async ( req , res) => {
     try {
-        const review  = await ReviewMenu.find({restaurant : req.params.id});
+        const review  = await ReviewMenu.find({menu : req.params.id});
         res.status(200).send(review)
     } catch (error) {
         console.log(error)
