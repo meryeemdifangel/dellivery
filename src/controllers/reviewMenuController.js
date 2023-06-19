@@ -30,8 +30,8 @@ const Menu = require('../models/menuModel');
             rest.avg = ( rat /reviewsOfRest.length ).toString() 
             await rest.save();
         }else {
-            review  = await Review.create(req.body)
-            const reviewsOfRest =  await Review.find({menu : req.body.menu});
+            review  = await ReviewMenu.create(req.body)
+            const reviewsOfRest =  await ReviewMenu.find({menu : req.body.menu});
             let rat = 0;
             for (let i =  0 ; i < reviewsOfRest.length ; i++){
                 rat += reviewsOfRest[i].rating;
