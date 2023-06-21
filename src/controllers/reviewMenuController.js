@@ -18,8 +18,8 @@ const Menu = require('../models/menuModel');
        
         let review = await ReviewMenu.findOne({menu : req.body.menu,client : req.body.user});
         if (review) {
-            review.rating = req.body.rating;
-            review.review = req.body.review;
+            review.rating = req.body.rating?req.body.rating:review.rating;
+            review.review = req.body.review?req.body.review:review.review;
             await review.save()
             const reviewsOfRest =  await ReviewMenu.find({menu : req.body.menu});
             let rat = 0;
