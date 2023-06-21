@@ -18,8 +18,8 @@ const Restaurant = require('../models/restaurantModel');
        
         let review = await Review.findOne({restaurant : req.body.restaurant,client : req.body.user});
         if (review) {
-            review.rating = req.body.rating;
-            review.review = req.body.review;
+            review.rating = req.body.rating?req.body.rating:review.rating;
+            review.review = req.body.review?req.body.review:review.review;
             await review.save()
             const reviewsOfRest =  await Review.find({restaurant : req.body.restaurant});
             let rat = 0;
