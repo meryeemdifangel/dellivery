@@ -16,7 +16,7 @@ const Restaurant = require('../models/restaurantModel');
  const addReviewOfRestaurant = async ( req , res ) => {
     try {
        
-        let review = await Review.findOne({restaurant : req.body.restaurant,client : req.body.user});
+        let review = await Review.findOne({restaurant : req.body.restaurant,client : req.body.client});
         if (review) {
             review.rating = req.body.rating?req.body.rating:review.rating;
             review.review = req.body.review?req.body.review:review.review;

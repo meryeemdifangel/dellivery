@@ -1,6 +1,7 @@
 
 const ReviewMenu = require('../models/reviewMenuModel');
 const Menu = require('../models/menuModel');
+const Review = require('../models/reviewModel');
 
 
  const getAllReviewOfMenu = async ( req , res) => {
@@ -16,8 +17,10 @@ const Menu = require('../models/menuModel');
  const addReviewOfMenu = async ( req , res ) => {
     try {
        
-        let review = await ReviewMenu.findOne({menu : req.body.menu,client : req.body.user});
+        let review = await ReviewMenu.findOne({menu : req.body.menu , client : req.body.client});
+        console.log(review)
         if (review) {
+            console.log(req.body)
             review.rating = req.body.rating?req.body.rating:review.rating;
             review.review = req.body.review?req.body.review:review.review;
             await review.save()
@@ -48,5 +51,7 @@ const Menu = require('../models/menuModel');
         res.status(400).send("err")
     }
 }
+
+
 
 module.exports = {getAllReviewOfMenu, addReviewOfMenu}
