@@ -81,6 +81,20 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
+
+// get user
+exports.getUser = catchAsyncErrors(async (req, res, next) => {
+
+  
+
+  const user = await User.findOne({ _id :req.params.id});
+
+  if (!user) {
+    return next(new ErrorHander("using does not exist", 401));
+  }
+
+  sendToken(user, 200, res);
+});
 // Logout User
 exports.logout = catchAsyncErrors(async (req, res, next) => {
   res.cookie("token", null, {
