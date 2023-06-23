@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Order = require('../models/orderModel');
+const Restaurant = require('../models/restaurantModel');
+const admin = require('../../firebase');
 
 const getAllOrdersOfClient = async (req , res) => {
     try { 
@@ -28,9 +30,7 @@ const updateOrder = async (req, res) => {
     try {
         const { id } = req.params
         const { status } = req.body
-        const a = await Order.findById({_id:id})
-        console.log(id)
-        console.log(a)
+   
         const updatedOrder = await Order.findByIdAndUpdate({_id:id}, { status })
         console.log(updateOrder)
         const restaurant= await Restaurant.findById({_id:updatedOrder.restaurant})
