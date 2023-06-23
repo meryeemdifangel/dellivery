@@ -24,5 +24,33 @@ const addOrder = async (req , res ) => {
     }
 }
 
+const updateOrder = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { status } = req.body
+        const a = await Order.findById({_id:id})
+        console.log(id)
+        console.log(a)
+        const updatedOrder = await Order.findByIdAndUpdate({_id:id}, { status })
+        console.log(updateOrder)
+        const restaurant= await Restaurant.findById({_id:updatedOrder.restaurant})
+      
+            const message = {
+                notification: {
+                    title: 'Your Order in ' + restaurant.nom +' is ' + status,
+                    body: `Your order status is ${status}`,
+                },
+                token: "d6YG3bi4QterHVShkwec_T:APA91bEDmG6gHWQ16K_NeH4fYu8YNvqiPpH8906Z1Y7eZzZq0qZRY8lh4kQSKbvH8SDNGtHiwdQ6LQUicGB6eP8OisylFK1Tugv29G64KVtBoMPAp9sDqWIjxTMfApvQ06WLhZNzogsK",
+            };
+            await admin.messaging().send(message)
+     
+        return res.status(200).json(updatedOrder)
+    } catch (error) {
+        console.log(error.message);
 
-module.exports = { getAllOrdersOfClient ,    addOrder }
+        res.status(500).json({ error: error.message });
+    }
+}
+
+
+module.exports = { getAllOrdersOfClient ,    addOrder , updateOrder }

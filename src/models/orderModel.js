@@ -15,6 +15,9 @@ const OrderSchema = mongoose.Schema({
     note : {
         type : String
     },
+    status : {
+        type : String
+    },
     orderItems  : [{
         orderItem : {
             type: mongoose.Schema.Types.ObjectId,

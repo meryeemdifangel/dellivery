@@ -82,6 +82,7 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 
+
 // get user
 exports.getUser = catchAsyncErrors(async (req, res, next) => {
 
