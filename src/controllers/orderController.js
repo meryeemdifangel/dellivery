@@ -5,11 +5,10 @@ const admin = require('../../firebase');
 
 const getAllOrdersOfClient = async (req , res) => {
     try { 
-        const orders = await Order.find({client :req.params.id }).populate('Restaurant')
-        .populate('User')
-        .populate('orderItems.orderItem')
+        const orders = await Order.find({client :req.params.id })
+ 
         if (orders) res.send(orders)
-        else res.send([])
+      
     } catch (error) {
         console.log(error,"err")
         res.status(400).send([])
