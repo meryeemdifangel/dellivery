@@ -16,7 +16,8 @@ const OrderSchema = mongoose.Schema({
         type : String
     },
     status : {
-        type : String
+        type : String,
+        default:"En route"
     },
     orderItems  : [{
         orderItem : {
